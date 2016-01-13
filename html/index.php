@@ -1,24 +1,36 @@
+
+
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>My projects</title>
+  <meta name="description" content="My projects">
+  <meta name="author" content="Rasko Lazic">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+ 
+</head>
+<h1>Lista projekata</h1>
+<body>
+
 <?php
 
-//echo "Hello world";
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-echo "Pre sredjivanja<br>";
-for($i=0;$i<20;$i++) {
-    $niz[$i]=rand(10, 100);
-    echo "Clan ". ($i+1) . ": {$niz[$i]}<br>";
-}
-echo "<br><br>Posle sredjivanja<br>";
-for($i=0; $i<19; $i++) {
-    for($j=$i+1; $j<20; $j++) {
-        if($niz[$i]>$niz[$j]) {
-            $temp=$niz[$i];
-            $niz[$i]=$niz[$j];
-            $niz[$j]=$temp;
-        }
+$dir=scandir('.');
+echo "<pre>";                                                                   //defines preformatted text
+for($brojac=2;$brojac<count($dir);$brojac++) {
+    if($dir[$brojac]!="index.php") {
+        ob_start();
+        include $dir[$brojac];
+        ob_end_clean();
+        //echo $dir[$i];
+        echo "<a href=/".$dir[$brojac].">".$title."</a><br>";
     }
 }
-for($i=0;$i<25;$i++) {
-    echo "Clan ". ($i+1) .": {$niz[$i]}<br>";
-}
+?>
+    
+</body>
+</html>
