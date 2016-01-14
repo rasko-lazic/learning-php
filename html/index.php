@@ -19,6 +19,7 @@
 
 <?php
 
+//UBACUJE U PROMENLJIVU DIR SVE FAJLOVE I DIREKTORIJUME SA PATHA
 $dir=scandir('.');
 echo "<pre>";                                                                   //defines preformatted text
 for($brojac=2;$brojac<count($dir);$brojac++) {

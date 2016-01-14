@@ -27,6 +27,8 @@ sudo apt-get -y install php5-gd
 sudo apt-get -y install php5-curl
 #RESTART Apache2
 sudo service apache2 restart
+#postgres
+sudo apt-get install postgresql-client
 #composer
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 #composer update
