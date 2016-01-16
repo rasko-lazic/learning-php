@@ -6,10 +6,8 @@ sudo apt-get install -y curl
 #Apache2
 sudo apt-get install -y apache2
 a2enmod rewrite
-#sudo rm -v /var/www
-#sudo ln -fs /vagrant/ /var/www
-sudo rm -rf /var/www
-sudo ln -s /vagrant/ /var/www
+sudo rm -v /var/www
+sudo ln -fs /vagrant/ /var/www
 #sudo cp /vagrant/setup/apache-default.conf /etc/apache2/sites-available/default.conf
 #sudo a2ensite default
 #sudo a2dissite 000-default
@@ -29,10 +27,8 @@ sudo apt-get -y install php5-gd
 sudo apt-get -y install php5-curl
 #RESTART Apache2
 sudo service apache2 restart
-#postgresql
+#postgres
 sudo apt-get install postgresql-client
-sudo apt-get install postgresql 
-sudo apt-get install postgresql-contrib
 #composer
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 #composer update
