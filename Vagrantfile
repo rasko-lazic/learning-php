@@ -70,4 +70,8 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> f72edd4d659254a2af280e53c26a033d89348df4
