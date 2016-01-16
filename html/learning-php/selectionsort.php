@@ -25,4 +25,4 @@ for($i=0;$i<$count;$i++) {
     echo "Clan ". ($i+1) .": {$niz[$i]}<br>";
 }
 
-echo'<br><br><a href="/index.php">Back</a>';
+echo'<br><br><a href="/learning-php/index.php">Back</a>';

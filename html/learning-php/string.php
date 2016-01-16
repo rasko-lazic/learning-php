@@ -38,5 +38,5 @@ if($_POST["string2"]!="") {
 $_POST=array();                                         
 echo "<br> _GET string: ".$_GET["string3"];
 
-echo'<br><br><a href="/index.php">Back</a>';
+echo'<br><br><a href="/learning-php/index.php">Back</a>';
 ?>

@@ -28,7 +28,7 @@ for($brojac=2;$brojac<count($dir);$brojac++) {
         include $dir[$brojac];
         ob_end_clean();
         //echo $dir[$i];
-        echo "<a href=/".$dir[$brojac].">".$title."</a><br>";
+        echo "<a href=/learning-php/".$dir[$brojac].">".$title."</a><br>";
     }
 }
 ?>
