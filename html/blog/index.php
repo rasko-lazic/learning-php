@@ -70,6 +70,12 @@ END;
             if($_GET["page"]) {
                 $page=$_GET["page"];
             }
+            
+            if($_GET["startdate"]) {
+                $startdate=$_GET["startdate"];
+                $enddate=$_GET["enddate"];
+                echo "$startdate - $enddate<br><br>";
+            }
             $titles = $blogdb->query("SELECT title FROM entries LIMIT 2 OFFSET $page*2");
             $dates = $blogdb->query("SELECT to_char(posted_on, 'dd Month YYYY') FROM entries LIMIT 2 OFFSET $page*2");
             $contents= $blogdb->query("SELECT content FROM entries LIMIT 2 OFFSET $page*2");
@@ -119,18 +125,14 @@ echo<<<END
           <div class="sidebar-module">
             <h4>Archives</h4>
             <ol class="list-unstyled">
-              <li><a href="arhiva.php?mar-2015">March 2014</a></li>
-              <li><a href="arhiva.php?feb-2015">February 2014</a></li>
-              <!--<li><a href="#">January 2014</a></li>
-              <li><a href="#">December 2013</a></li>
-              <li><a href="#">November 2013</a></li>
-              <li><a href="#">October 2013</a></li>
-              <li><a href="#">September 2013</a></li>
-              <li><a href="#">August 2013</a></li>
-              <li><a href="#">July 2013</a></li>
-              <li><a href="#">June 2013</a></li>
-              <li><a href="#">May 2013</a></li>
-              <li><a href="#">April 2013</a></li>-->
+              <li><a href="index.php?startdate=2015-03-01&enddate=2015-03-31">March 2015</a></li>
+              <li><a href="index.php?startdate=2015-02-01&enddate=2015-02-28">February 2015</a></li>
+              <li><a href="index.php?startdate=2015-01-01&enddate=2015-01-31">January 2015</a></li>
+              <li><a href="index.php?startdate=2014-12-01&enddate=2014-12-31">December 2014</a></li>
+              <li><a href="index.php?startdate=2014-11-01&enddate=2014-11-30">November 2014</a></li>
+              <li><a href="index.php?startdate=2014-10-01&enddate=2014-10-31">October 2014</a></li>
+              <li><a href="index.php?startdate=2014-09-01&enddate=2014-09-30">September 2014</a></li>
+              <li><a href="index.php?startdate=2014-08-01&enddate=2014-08-31">August 2014</a></li>
             </ol>
           </div>
           <div class="sidebar-module">
