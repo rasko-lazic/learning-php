@@ -25,10 +25,10 @@ $title="Blog output test";
     
     //$myPDO->query("INSERT INTO entries (title) values ('blabla')");
     
-    $result = $myPDO->query("SELECT title FROM entries");
+    $result = $myPDO->query("SELECT * FROM entries");
     echo"<pre>";
     foreach($result as $r) {
-        echo $r[0];
+        print_r ($r);
     }
 echo'<br><br><a href="/learning-php/index.php">Back</a>';
 ?>

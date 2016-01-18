@@ -62,57 +62,94 @@ echo <<<END
 
         <div class="col-sm-8 blog-main">
 
-          <div class="blog-post">
+          
 END;
 
             $blogdb = new PDO('pgsql:host=localhost;dbname=blogdb', 'postgres', 'newPassword');
             $page=0;
-            if($_GET["page"]) {
+            if(isset($_GET["page"])) {
                 $page=$_GET["page"];
             }
-            
-            if($_GET["startdate"]) {
+            $mark=1;
+
+            if(isset($_GET["startdate"])) {
+                $mark=0;
                 $startdate=$_GET["startdate"];
                 $enddate=$_GET["enddate"];
-                echo "$startdate - $enddate<br><br>";
+                $posts=$blogdb->prepare("SELECT * FROM entries WHERE posted_on BETWEEN :startdate AND :enddate ORDER BY (text_id) DESC LIMIT 2 OFFSET :page*2");
+                $posts->bindParam(':startdate', $startdate);
+                $posts->bindParam(':enddate', $enddate);
+                $posts->bindParam(':page', $page);
+                $posts->execute();
+           }
+//            $titles = $blogdb->prepare("SELECT title FROM entries LIMIT 2 OFFSET :page*2");
+//            $titles->bindParam(1, $date);
+//            $dates = $blogdb->prepare("SELECT to_char(posted_on, 'dd Month YYYY') FROM entries LIMIT 2 OFFSET :page*2");
+//            $dates->bindParam(1, $date);
+//            $contents= $blogdb->prepare("SELECT content FROM entries LIMIT 2 OFFSET :page*2");
+//            $contents->bindParam(1, $date);
+//            $titles->execute();
+//            $dates->execute();
+//            $contents->execute();
+//            $i=0;
+//            foreach($titles as $title[$i++]) {
+//                
+//            }
+//            $i=0;
+//            foreach($dates as $date[$i++]) {
+//                
+//            }
+//            echo "<h2 class=\"blog-post-title\">".$title[0][0]."</h2>";
+//            echo "<p class=\"blog-post-meta\">Posted on: ". $date[0][0] ."</p>";
+//            $i=0;
+//            foreach($contents as $content[$i++]) {
+//                
+//            }
+//            echo $content[0][0];
+//                    
+//           
+//          echo "</div><!-- /.blog-post -->";
+//          echo "<div class=\"blog-post\">";
+//            echo "<h2 class=\"blog-post-title\">".$title[1][0]."</h2>";
+//            echo "<p class=\"blog-post-meta\">Posted on: ". $date[1][0] ."</p>";
+//
+//            echo $content[1][0];
+//
+//            
+//          echo"</div><!-- /.blog-post -->";
+            if($mark) {
+                $posts=$blogdb->prepare("SELECT * FROM entries ORDER BY (text_id) DESC LIMIT 2 OFFSET :page*2");
+                $posts->bindParam(':page', $page);
+                $posts->execute();
             }
-            $titles = $blogdb->query("SELECT title FROM entries LIMIT 2 OFFSET $page*2");
-            $dates = $blogdb->query("SELECT to_char(posted_on, 'dd Month YYYY') FROM entries LIMIT 2 OFFSET $page*2");
-            $contents= $blogdb->query("SELECT content FROM entries LIMIT 2 OFFSET $page*2");
-            $i=0;
-            foreach($titles as $title[$i++]) {
-                
-            }
-            $i=0;
-            foreach($dates as $date[$i++]) {
-                
-            }
-            echo "<h2 class=\"blog-post-title\">".$title[0][0]."</h2>";
-            echo "<p class=\"blog-post-meta\">Posted on: ". $date[0][0] ."</p>";
-            $i=0;
-            foreach($contents as $content[$i++]) {
-                
-            }
-            echo $content[0][0];
-                    
-           
-          echo "</div><!-- /.blog-post -->";
-          echo "<div class=\"blog-post\">";
-            echo "<h2 class=\"blog-post-title\">".$title[1][0]."</h2>";
-            echo "<p class=\"blog-post-meta\">Posted on: ". $date[1][0] ."</p>";
-
-            echo $content[1][0];
-
             
-          echo"</div><!-- /.blog-post -->";
-          
+            foreach($posts as $post) {
+                echo "<div class=\"blog-post\">";
+                echo "<h2 class=\"blog-post-title\">".$post ["title"]."</h2>";
+                echo "<p class=\"blog-post-meta\">Posted on: ". $post["posted_on"] ."</p>";
+                echo $post["content"];
+                echo "</div><!-- /.blog-post -->";
+            }
+            if($mark) {
+                $post_no=$blogdb->query("SELECT COUNT(text_id) FROM entries");
+            }
+            else {
+                $post_no=$blogdb->prepare("SELECT COUNT(text_id) FROM entries WHERE posted_on BETWEEN :startdate AND :enddate");
+                $post_no->bindParam(':startdate', $startdate);
+                $post_no->bindParam(':enddate', $enddate);
+                $post_no->execute();
+            }
+            $count=$post_no->fetch(PDO::FETCH_BOTH);
+            //var_dump($post_no);
     echo "<nav>
             <ul class=\"pager\">";
-            if($page>0) {
+         if($page>0) {
               echo"<li><a href=\"index.php?page=". ($page-1) ."\">Previous</a></li>";
               }
-              echo "<li><a href=\"index.php?page=". ($page+1) ."\">Next</a></li>
-            </ul>
+         if(($page+1)*2<$count[0]) {
+              echo "<li><a href=\"index.php?page=". ($page+1) ."\">Next</a></li>";
+              } 
+           echo "</ul>
           </nav>";
 echo<<<END
         </div><!-- /.blog-main -->
