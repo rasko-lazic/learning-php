@@ -13,11 +13,17 @@
 </html>
 
 
+
+
 <?php
 /*razlike izmedju _POST i _GET[in url]
  * 
  * string[] automatski rasporedjuje u array sa odvojenim indeksima
  */
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $title="String input tests";
 //FORMATIRA IZLAZ
@@ -37,6 +43,15 @@ if($_POST["string2"]!="") {
 //FLUSH-UJE $_POST
 $_POST=array();                                         
 echo "<br> _GET string: ".$_GET["string3"];
+
+//foreach TEST
+$fruit=array("apple", "kiwi", "grape");
+var_dump($fruit);
+foreach($fruit as $fruit) {
+    echo "<br>" .$fruit;
+}
+
+echo $fruit;
 
 echo'<br><br><a href="/learning-php/index.php">Back</a>';
 ?>
